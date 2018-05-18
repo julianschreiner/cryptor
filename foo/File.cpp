@@ -14,10 +14,13 @@ File::~File(){
 bool File::renameFile() {
 	bool ok;
 
-	/* CREATE RANDOM HASH FOR NEW FILE NAME */
+	this->setExtension();
+
 	if (this->encrypt()) {
-		/* THEN ASSIGN IT TO NEW FILE NAME */
-		ok = rename(this->_fileName.c_str(), this->getHashName().c_str());	//TODO EXTENSION GETS LOST , DETECT IT FROM ORIGINAL
+		std::string newHash = this->getHashName();
+		//newHash += this->getExtension();
+
+		ok = rename(this->_fileName.c_str(), newHash.c_str());
 	}
 
 	return ok;	
@@ -26,7 +29,7 @@ bool File::renameFile() {
 bool File::encrypt() {
 	myEncrypt = new Encryption();
 
-	myEncrypt->setHash(10);
+	myEncrypt->setHash(MAXSEEDHASH);
 
 	this->setHashName(myEncrypt->getHash());
 
@@ -43,4 +46,14 @@ void File::setHashName(std::string hashName) {
 }
 std::string File::getHashName() {
 	return this->_hashName;
+}
+
+void File::setExtension() {
+	size_t pos = this->_fileName.find(".");
+
+	this->_origExtension = this->_fileName.erase(0, pos-1);
+}
+
+std::string File::getExtension() {
+	return this->_origExtension;
 }

@@ -16,6 +16,7 @@ Encryption::~Encryption()
 void Encryption::setHash(int length) {
 	std::string createHash;
 	int randomSeed = 0;
+	int randomSeed2 = 0;
 	srand(time(NULL));
 	int state = 0;
 
@@ -28,8 +29,8 @@ void Encryption::setHash(int length) {
 		}
 		else {
 			//number
-			randomSeed = rand() % 10;
-			createHash += std::to_string(this->_numbers.at(randomSeed));
+			randomSeed2 = rand() % 10;
+			createHash += std::to_string(this->_numbers.at(randomSeed2));
 			state = 0;
 		}
 	}
