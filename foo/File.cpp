@@ -2,28 +2,34 @@
 #include "File.h"
 
 
+
 File::File(std::string fileName){
 	this->_fileName = fileName;
 }
 
 
 File::~File(){
-
+	delete myEncrypt;
 }
 
 bool File::renameFile() {
-	bool ok;
+	int ok;
 
 	this->setExtension();
 
 	if (this->encrypt()) {
 		std::string newHash = this->getHashName();
-		//newHash += this->getExtension();
+		newHash += this->getExtension();
 
+		//std::ofstream _file(this->_fileName.c_str(), std::ofstream::app);
+		
 		ok = rename(this->_fileName.c_str(), newHash.c_str());
-	}
 
-	return ok;	
+		//_file.close();
+	}
+	
+
+	return ok == 0 ? true : false;	
 }
 
 bool File::encrypt() {
@@ -32,7 +38,7 @@ bool File::encrypt() {
 	myEncrypt->setHash(MAXSEEDHASH);
 
 	this->setHashName(myEncrypt->getHash());
-
+ 
 	if (this->getHashName().length() > 0) return true;
 	else return false;
 }
@@ -50,8 +56,9 @@ std::string File::getHashName() {
 
 void File::setExtension() {
 	size_t pos = this->_fileName.find(".");
+	std::string fileNameCop = this->_fileName;
 
-	this->_origExtension = this->_fileName.erase(0, pos-1);
+	this->_origExtension = fileNameCop.erase(0, pos-1);
 }
 
 std::string File::getExtension() {

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "Encryption.h"
 #include <string.h>
+#include <fstream>
 
 #define MAXSEEDHASH 20
 

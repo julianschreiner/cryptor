@@ -1,5 +1,2 @@
 ﻿  File.cpp
-  foo.cpp
-e:\coding\c++\projects\foo\foo\foo.cpp(14): warning C4101: "result": Unreferenzierte lokale Variable
-  Code wird generiert...
   foo.vcxproj -> E:\Coding\C++\Projects\foo\Debug\foo.exe

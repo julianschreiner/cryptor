@@ -17,8 +17,8 @@ void Encryption::setHash(int length) {
 	std::string createHash;
 	int randomSeed = 0;
 	int randomSeed2 = 0;
-	srand(time(NULL));
 	int state = 0;
+	srand(time(NULL));
 
 	for (int i = 0; i < length; i++) {
 		if (state == 0) {
@@ -35,7 +35,7 @@ void Encryption::setHash(int length) {
 		}
 	}
 
-	puts(createHash.c_str());
+	//puts(createHash.c_str());
 
 	this->_hash = createHash;
 }
